@@ -64,7 +64,7 @@ function cargarListaDesdeAPI() {
       }
     }
   };
-  xhttp.open("GET", "personasFutbolitasProfesionales.php", true); // true para solicitud asíncrona
+  xhttp.open("GET", "personasFutbolitasProfesionales.php", true);
   xhttp.send();
 }
 // Función para generar la lista en memoria segun su tipo desde la respuesta JSON
@@ -236,13 +236,20 @@ function mostrarFormularioABM(titulo) {
   agregarFormABM();
   eliminarErrores();
   limpiarCamposFormABM();
+  const id = document.getElementById("id");
+  const idLabel = document.querySelector(`label[for="id"]`);
 
   if (titulo.includes("Alta")) {
     tipoAccion = tipoAcciones.alta;
+    id.style.display = "none";
+    idLabel.style.display = "none";
+  } else {
+    id.style.display = "block";
+    idLabel.style.display = "block";
   }
 
+  id.disabled = true;
   document.getElementById("tituloABM").textContent = titulo;
-  document.getElementById("id").disabled = true;
   document.getElementById("tipo").style.display = "block";
   document.getElementById("nombre").disabled = tipoAccion === tipoAcciones.baja;
   document.getElementById("apellido").disabled =
@@ -514,59 +521,62 @@ function obtenerDataForm() {
   };
 }
 // Alta
-function procesarAlta() {
-  const objetoJSON = obtenerDataForm();
-  const tipo = document.getElementById("tipo").value;
+async function procesarAlta() {
+  try {
+    const objetoJSON = obtenerDataForm();
+    const tipo = document.getElementById("tipo").value;
+    const { id, ...restoDatos } = objetoJSON;
 
-  fetch("personasFutbolitasProfesionales.php", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(objetoJSON),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        alert("No se pudo realizar la operación.");
-      }
-    })
-    .then((data) => {
+    const response = await fetch("personasFutbolitasProfesionales.php", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(restoDatos),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
       const nuevoElemento =
         tipo === "futbolista"
           ? new Futbolista(
               data.id,
-              data.nombre,
-              data.apellido,
-              data.edad,
-              data.equipo,
-              data.posicion,
-              data.cantidadGoles
+              objetoJSON.nombre,
+              objetoJSON.apellido,
+              objetoJSON.edad,
+              objetoJSON.equipo,
+              objetoJSON.posicion,
+              objetoJSON.cantidadGoles
             )
           : tipo === "profesional"
           ? new Profesional(
               data.id,
-              data.nombre,
-              data.apellido,
-              data.edad,
-              data.titulo,
-              data.facultad,
-              data.añoGraduacion
+              objetoJSON.nombre,
+              objetoJSON.apellido,
+              objetoJSON.edad,
+              objetoJSON.titulo,
+              objetoJSON.facultad,
+              objetoJSON.añoGraduacion
             )
-          : new Persona(data.id, data.nombre, data.apellido, data.edad);
-
+          : new Persona(
+              data.id,
+              objetoJSON.nombre,
+              objetoJSON.apellido,
+              objetoJSON.edad
+            );
       listaElementos.push(nuevoElemento);
-      ocultarSpinner();
-      removerFormABM();
-      mostrarLista(listaElementos);
-    })
-    .catch((error) => {
-      ocultarSpinner();
-      removerFormABM();
-      mostrarLista(listaElementos);
-      alert(`No se pudo realizar la operación: ${error.message}`);
-    });
+    } else {
+      alert("No se pudo realizar la operación.");
+    }
+    ocultarSpinner();
+    removerFormABM();
+    mostrarLista(listaElementos);
+  } catch (error) {
+    ocultarSpinner();
+    removerFormABM();
+    mostrarLista(listaElementos);
+    alert(`No se pudo realizar la operación: ${error.message}`);
+  }
 }
 // Baja
 function procesarBaja() {
