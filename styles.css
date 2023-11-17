@@ -1,0 +1,84 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+caption {
+  font-size: 1.5rem;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+}
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#btnAgregarElemento {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+#btnAgregarElemento:hover {
+  background-color: #0056b3;
+}
+#formularioABM {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+#tituloABM {
+  font-size: 1.5rem;
+  text-align: left;
+  margin-bottom: 20px;
+}
+label {
+  font-weight: bold;
+}
+.errorInput {
+  color: red;
+}
+input[type="number"],
+input[type="text"],
+select,
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+select {
+  cursor: pointer;
+}
+#accionesABM {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+#btnAceptar,
+#btnCancelar {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#btnAceptar:hover,
+#btnCancelar:hover {
+  background-color: #0056b3;
+}

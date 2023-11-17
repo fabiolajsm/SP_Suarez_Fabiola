@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Segundo examen Labo</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="index.js" defer></script>
+  </head>
+
+  <body>
+    <div id="contenedorElementos" style="display: none">
+      <table>
+        <caption>
+          Formulario Lista
+        </caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Equipo</th>
+            <th>Posición</th>
+            <th>Cantidad de Goles</th>
+            <th>Título</th>
+            <th>Facultad</th>
+            <th>Año de Graduación</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="elementos">
+          <!-- Los elementos se agregarán aquí -->
+        </tbody>
+      </table>
+      <button
+        id="btnAgregarElemento"
+        onclick="mostrarFormularioABM('Alta de persona')"
+        type="submit"
+      >
+        Agregar Elemento
+      </button>
+    </div>
+
+    <form id="formularioABM" style="display: none">
+      <h1 id="tituloABM">Alta de Persona</h1>
+      <label for="id">ID:</label>
+      <input type="number" id="id" name="id" required maxlength="50" />
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required maxlength="50" />
+      <label for="errorNombre" class="errorInput" style="display: none"
+        >⚠️ Nombre inválido</label
+      >
+      <br />
+      <label for="apellido">Apellido:</label>
+      <input
+        type="text"
+        id="apellido"
+        name="apellido"
+        required
+        maxlength="50"
+      />
+      <label for="errorApellido" class="errorInput" style="display: none"
+        >⚠️ Apellido inválido</label
+      >
+      <br />
+
+      <label for="edad">Edad:</label>
+      <input type="number" required id="edad" name="edad" min="16" step="1" />
+      <label for="errorEdad" class="errorInput" style="display: none"
+        >⚠️ Edad inválida, tiene que ser un número mayor o igual a 16 y menor a
+        80 años</label
+      >
+      <br />
+
+      <select id="tipo" title="tipo" onchange="handleChangeTipo()">
+        <option disabled selected value="default">Selecciona una opción</option>
+        <option value="futbolista">Futbolista</option>
+        <option value="profesional">Profesional</option>
+      </select>
+      <label for="errorTipo" class="errorInput" style="display: none"
+        >⚠️ Seleccione un tipo</label
+      >
+      <br />
+
+      <label style="display: none" for="equipo">Equipo:</label>
+      <input
+        type="text"
+        id="equipo"
+        name="equipo"
+        step="1"
+        style="display: none"
+      />
+      <label for="errorEquipo" class="errorInput" style="display: none"
+        >⚠️ Equipo inválido</label
+      >
+
+      <label style="display: none" for="posicion">Posición:</label>
+      <input
+        type="text"
+        id="posicion"
+        name="posicion"
+        step="1"
+        style="display: none"
+      />
+      <label for="errorPosicion" class="errorInput" style="display: none"
+        >⚠️ Posición inválida</label
+      >
+
+      <label style="display: none" for="cantidadGoles">Cantidad Goles:</label>
+      <input
+        type="number"
+        id="cantidadGoles"
+        name="cantidadGoles"
+        step="1"
+        style="display: none"
+      />
+      <label for="errorCantidadGoles" class="errorInput" style="display: none"
+        >⚠️ Cantidad de goles inválida</label
+      >
+
+      <label style="display: none" for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" style="display: none" />
+      <label for="errorTitulo" class="errorInput" style="display: none"
+        >⚠️ Título inválido</label
+      >
+      <label style="display: none" for="facultad">Facultad:</label>
+      <input type="text" id="facultad" name="facultad" style="display: none" />
+      <label for="errorFacultad" class="errorInput" style="display: none"
+        >⚠️ Facultad inválida</label
+      >
+      <label style="display: none" for="añoGraduacion"
+        >Año de Graduación:</label
+      >
+      <input
+        id="añoGraduacion"
+        name="añoGraduacion"
+        style="display: none"
+        type="number"
+        min="1900"
+        max="2023"
+        step="1"
+      />
+      <label for="errorAñoGraduacion" class="errorInput" style="display: none"
+        >⚠️ Año de Graduación inválido</label
+      >
+
+      <div id="accionesABM">
+        <button id="btnCancelar" onclick="btnCancelarABM()">Cancelar</button>
+        <button id="btnAceptar" onclick="btnAceptarABM(event)">Aceptar</button>
+      </div>
+    </form>
+
+    <div id="spinner" style="display: block">
+      <h4>Cargando...</h4>
+    </div>
+  </body>
+</html>
