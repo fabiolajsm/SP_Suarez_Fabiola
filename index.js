@@ -609,36 +609,58 @@ function procesarBaja() {
     });
 }
 // Modificación
-async function procesarModificacion() {
+function procesarModificacion() {
   const data = obtenerDataForm();
-  try {
-    const response = await fetch("personasFutbolitasProfesionales.php", {
+  return new Promise((resolve, reject) => {
+    fetch("personasFutbolitasProfesionales.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    });
-
-    if (response.ok && response.status === 200) {
-      const jsonResponse = await response.json();
-      if (Array.isArray(jsonResponse)) {
-        listaElementos = jsonResponse;
+    })
+      .then((response) => {
+        if (response.ok && response.status === 200) {
+          const elemento = listaElementos.find(
+            (item) => item.id === Number(data.id)
+          );
+          if (elemento) {
+            if (elemento instanceof Futbolista && !(data instanceof Futbolista)) {
+              const { equipo, posicion, cantidadGoles, ...restoDatos } = data;
+              Object.keys(restoDatos).forEach((key) => {
+                if (restoDatos[key]) {
+                  elemento[key] = restoDatos[key];
+                }
+              });
+            } else if (elemento instanceof Profesional && !(data instanceof Profesional)) {
+              const { titulo, facultad, añoGraduacion, ...restoDatos } = data;
+              Object.keys(restoDatos).forEach((key) => {
+                if (restoDatos[key]) {
+                  elemento[key] = restoDatos[key];
+                }
+              });
+            } else {
+              Object.keys(data).forEach((key) => {
+                if (data[key]) {
+                  elemento[key] = data[key];
+                }
+              });
+            }
+          }
+        } else {
+          alert("No se pudo realizar la operación.");
+        }
+      })
+      .catch((error) => {
+        console.log("Error en la operación:", error.message);
+        alert(`No se pudo realizar la operación: ${error.message}`);
+      })
+      .finally(() => {
+        ocultarSpinner();
+        ocultarFormABM();
         mostrarLista(listaElementos);
-      } else {
-        alert("La respuesta no es una lista de elementos.");
-      }
-    } else {
-      alert("No se pudo realizar la operación.");
-    }
-  } catch (error) {
-    console.log("Error en la operación:", error.message);
-    alert(`No se pudo realizar la operación: ${error.message}`);
-  } finally {
-    ocultarSpinner();
-    ocultarFormABM();
-    mostrarLista(listaElementos);
-  }
+      });
+  });
 }
 
 // Ocultar o mostrar Spinner
