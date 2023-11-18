@@ -626,14 +626,14 @@ function procesarModificacion() {
           );
           if (elemento) {
             if (elemento instanceof Futbolista && !(data instanceof Futbolista)) {
-              const { equipo, posicion, cantidadGoles, ...restoDatos } = data;
+              const { titulo, facultad, añoGraduacion, ...restoDatos } = data;
               Object.keys(restoDatos).forEach((key) => {
                 if (restoDatos[key]) {
                   elemento[key] = restoDatos[key];
                 }
               });
             } else if (elemento instanceof Profesional && !(data instanceof Profesional)) {
-              const { titulo, facultad, añoGraduacion, ...restoDatos } = data;
+              const { equipo, posicion, cantidadGoles, ...restoDatos } = data;
               Object.keys(restoDatos).forEach((key) => {
                 if (restoDatos[key]) {
                   elemento[key] = restoDatos[key];
