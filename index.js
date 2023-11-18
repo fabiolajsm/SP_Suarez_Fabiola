@@ -591,7 +591,7 @@ function procesarBaja() {
     .then((response) => {
       if (response.status === 200) {
         listaElementos = listaElementos.filter(
-          (item) => item.id !== Number(id)
+          (item) => Number(item.id) !== Number(id)
         );
       }
       ocultarSpinner();
