@@ -5,10 +5,10 @@ table {
 }
 caption {
   font-size: 1.5rem;
-  text-align: left;
+  text-align: center; 
   margin-bottom: 10px;
+  font-weight: bold;
 }
-
 th,
 td {
   border: 1px solid #ddd;
@@ -21,17 +21,17 @@ th {
 tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-
 #btnAgregarElemento {
   margin-top: 20px;
+  margin-bottom: 20px; /* Añadido para separar el botón del formulario */
   padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #ffc2d1;
+  color: black;
   border: none;
   cursor: pointer;
 }
 #btnAgregarElemento:hover {
-  background-color: #0056b3;
+  background-color: #ffe5ec;
 }
 #formularioABM {
   background-color: #f2f2f2;
@@ -72,13 +72,44 @@ select {
 #btnAceptar,
 #btnCancelar {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #ffe5ec;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+#btnAceptar {
+  color: black;
+}
+#btnCancelar {
+  color: #ff595e;
+}
+
 #btnAceptar:hover,
 #btnCancelar:hover {
-  background-color: #0056b3;
+  background-color: #ffc2d1;
+}
+
+#spinnerContainer {
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+#spinner {
+  border: 8px solid #f3f3f3; 
+  border-top: 8px solid #ff595e; 
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

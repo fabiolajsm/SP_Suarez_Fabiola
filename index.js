@@ -665,12 +665,16 @@ function procesarModificacion() {
 
 // Ocultar o mostrar Spinner
 function ocultarSpinner() {
-  const spinner = document.getElementById("spinner");
+  const spinner = document.getElementById("spinnerContainer");
+  const spinnerData = document.getElementById("spinner");
   spinner.style.display = "none";
+  spinnerData.style.display = "none";
 }
 function mostrarSpinner() {
-  const spinner = document.getElementById("spinner");
-  spinner.style.display = "block";
+  const spinner = document.getElementById("spinnerContainer");
+  const spinnerData = document.getElementById("spinner");
+  spinner.style.display = "flex";
+  spinnerData.style.display = "flex";
 }
 // Ocultar o mostrar FormLista
 function ocultarFormLista() {
